@@ -6,10 +6,18 @@ const mainSection = document.getElementById('main')
 // the latest div id
 let currentId = 1
 
-const divAdder = () => {
+// add btn main function
+mainAddBtn.onclick = divAdder
+
+// del btn main function
+mainDelBtn.addEventListener('click', function() {
+    mainSection.removeChild(mainContainer)
+})
+
+function divAdder() {
     // increase id number
     currentId++
-    
+
     // creates a new div
     const newDiv = document.createElement('div')
     newDiv.setAttribute('id',currentId)
@@ -36,7 +44,7 @@ const divAdder = () => {
     const addBtn = document.createElement('button')
     addBtn.textContent = '+'
     addBtn.setAttribute('class','btn-add')
-
+    // child add btn onclick function
     addBtn.onclick = () => newDivAdder(newDiv.id)
     
     
@@ -44,8 +52,9 @@ const divAdder = () => {
     const delBtn = document.createElement('button')
     delBtn.textContent = '-'
     delBtn.setAttribute('class','btn-del')
+    // child del btn onclick function
+    delBtn.onclick = () => newDivDeleter(newDiv)
     
-
     // appending titles and btns to new div
     newDiv.appendChild(divTitle)
     newDiv.appendChild(parentTitle)
@@ -54,14 +63,8 @@ const divAdder = () => {
 }
 
 
-// add btn whole function
-mainAddBtn.onclick = divAdder
 
-// del btn whole function
-mainDelBtn.addEventListener('click', function() {
-    mainSection.removeChild(mainContainer)
-})
-
+// childer child div adder
 function newDivAdder(id) {
     
     // // increase id number
@@ -94,19 +97,26 @@ function newDivAdder(id) {
     const addChildBtn = document.createElement('button')
     addChildBtn.textContent = '+'
     addChildBtn.setAttribute('class','btn-add')
+    // childer child add btn function
     addChildBtn.onclick = () => newDivAdder(childDiv.id);
     
     
     // adding del btn to new div
-    const delChilcBtn = document.createElement('button')
-    delChilcBtn.textContent = '-'
-    delChilcBtn.setAttribute('class','btn-del')
+    const delChildBtn = document.createElement('button')
+    delChildBtn.textContent = '-'
+    delChildBtn.setAttribute('class','btn-del')
+    // childer child del btn function
+    delChildBtn.onclick = () => newDivDeleter(childDiv)
 
     
     // appending titles and btns to new div
     childDiv.appendChild(divTitle)
     childDiv.appendChild(parentTitle)
     childDiv.appendChild(addChildBtn)
-    childDiv.appendChild(delChilcBtn)
-    
+    childDiv.appendChild(delChildBtn)
+}
+
+// childer child deleter btn
+function newDivDeleter(newDiv) {
+    newDiv.parentNode.removeChild(newDiv)
 }
